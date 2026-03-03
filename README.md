@@ -18,4 +18,4 @@ This is my first real Try for HackClub Blueprint challange
 ### View in KiCad 3D-View
 ![3D-View in KiCad](Screenshots/PCB_3d_View_V1.png)
 
-This is my first time to 3D model something. For this project i use ==Fusion 360==
+This is my first time to 3D model something. For this project i use `Fusion 360`
