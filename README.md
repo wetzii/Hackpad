@@ -25,4 +25,4 @@ I export it as a .step file and opend it in Fusion 360.
 
 ### View in Fusion 360
 This is my first view.
-![3D-View in Fusion 360](PCB_3d_View_V1_Fusion360.png)
+![3D-View in Fusion 360](Screenshots/PCB_3d_View_V1_Fusion360.png)
