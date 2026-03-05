@@ -39,6 +39,6 @@ This is my first view.
 
 The Case inside is about 100.5mm x 100.5mm inside. This make sure that the PCB will fit. The Case 'Wall' is 120mm x 120mm. The holes for the Switches are 14,2mm x 14,2. The height is 12mm -> floor is 3mm 
 
-![3D-View in Fusion 360](Full_Case_Fusion360.png)
+![3D-View in Fusion 360](Screenshots/Full_Case_Fusion360.png)
 
 ## 5. Firmware
