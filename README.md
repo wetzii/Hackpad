@@ -8,7 +8,16 @@ This is my first real Try for HackClub Blueprint challange
 - Rotary potentiometer
 - It should be Simple 
 
-## 2. I made my formwork plan
+### Bill of Materials
+- 16x through-hole 1N4148 Diodes
+- 16x MX-Style switches
+- 1x EC11 Rotary encoders
+- 100 nF ceramic capacitor
+- 1x 0.91 inch OLED display
+- 1x 16x white blank DSA keycaps
+
+
+## Formworkplan
 ![formwork plan](Screenshots/FormworkPlan.png)
 
 ## 3. Connect on PCB
@@ -26,3 +35,10 @@ I export it as a .step file and opend it in Fusion 360.
 ### View in Fusion 360
 This is my first view.
 ![3D-View in Fusion 360](Screenshots/PCB_3d_View_V1_Fusion360.png)
+
+
+The Case inside is about 100.5mm x 100.5mm inside. This make sure that the PCB will fit. The Case 'Wall' is 120mm x 120mm. The holes for the Switches are 14,2mm x 14,2. The height is 12mm -> floor is 3mm 
+
+![3D-View in Fusion 360](Full_Case_Fusion360.png)
+
+## 5. Firmware

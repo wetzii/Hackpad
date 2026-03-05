@@ -10969,7 +10969,7 @@
 		(layer "Edge.Cuts")
 		(uuid "b13ebc7d-e10d-4f45-b80a-34d02b5a2340")
 	)
-	(gr_text "2026\n"
+	(gr_text "\n"
 		(at 103.886 108.458 0)
 		(layer "Edge.Cuts")
 		(uuid "2fb9898e-a707-4408-8c63-744a4c0e3117")
@@ -10981,7 +10981,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "Made on earth by wetzi\n\n"
+	(gr_text "Made in Mürztal\nby wetzi"
 		(at 93.5355 112.522 0)
 		(layer "Edge.Cuts")
 		(uuid "52cc5734-fb5d-48af-a6ab-83cc0476f618")
