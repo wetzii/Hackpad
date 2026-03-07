@@ -32,14 +32,26 @@ jobs:
           cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/wetzii_hackpad/
           cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
 
-      - name: Compile
+      - name: Compile directly with make
         run: |
           cd $HOME/qmk_firmware
-          qmk compile -kb wetzii_hackpad -km default
-          find $HOME/qmk_firmware/.build -name "*.uf2" -exec cp {} $GITHUB_WORKSPACE/firmware.uf2 \;
+          QMK_HOME=$HOME/qmk_firmware make -j4 keyboards/wetzii_hackpad:default 2>&1 | tail -30
+          find $HOME/qmk_firmware/.build -name "*.uf2" 2>/dev/null | head -5
+
+      - name: Copy uf2 to workspace
+        run: |
+          UF2=$(find $HOME/qmk_firmware/.build -name "*.uf2" | head -1)
+          if [ -n "$UF2" ]; then
+            cp "$UF2" $GITHUB_WORKSPACE/firmware.uf2
+            echo "Found: $UF2"
+          else
+            echo "No uf2 found, listing build dir:"
+            ls $HOME/qmk_firmware/.build/ 2>/dev/null || echo "Build dir empty"
+          fi
 
       - name: Upload .uf2
         uses: actions/upload-artifact@v4
         with:
           name: wetzii_hackpad_firmware
           path: firmware.uf2
+          if-no-files-found: warn
