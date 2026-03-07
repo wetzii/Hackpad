@@ -9,24 +9,34 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install QMK CLI
+        run: pip3 install qmk
 
       - name: Setup QMK
-        uses: qmk/qmk_firmware/.github/actions/setup@master
+        run: |
+          git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git ~/qmk_firmware
+          qmk setup -H ~/qmk_firmware -y
 
       - name: Copy keyboard files
         run: |
-          cp -r Firmware/ $QMK_HOME/keyboards/wetzii_hackpad/
+          cp -r Firmware ~/qmk_firmware/keyboards/wetzii_hackpad
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi
 
       - name: Compile firmware
         run: |
-          qmk compile -kb wetzii_hackpad -km default
+          qmk compile -H ~/qmk_firmware -kb wetzii_hackpad -km default
 
-      - name: Upload .uf2
+      - name: Upload .uf2 artifact
         uses: actions/upload-artifact@v4
         with:
           name: wetzii_hackpad_firmware
-          path: $QMK_HOME/.build/*.uf2
+          path: ~/qmk_firmware/.build/*.uf2
