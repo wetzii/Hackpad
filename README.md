@@ -2,6 +2,7 @@
 This is my first real try for the **Hack Club Blueprint** challenge! I wanted to build something functional and learn the full process from PCB design to 3D modeling.
 
 ![3D-View in Fusion 360](Screenshots/Rendert_hackpad.png)
+![Explosion](Screenshots/Explodion.png)
 
 ## 1. The Idea
 My goal was to create a clean and simple macro pad with the following features:
@@ -63,3 +64,5 @@ The Hackpad runs on **QMK Firmware**.
 * **Layout:** A standard Numpad on the left 3 columns, with 4 customizable shortcut keys on the right.
 * **OLED:** Displays the active layer and system status like Num Lock.
 * **Encoder:** Programmed for volume control.
+
+**I just can programming Java at this time I used AI for the Firmware but my own Version is following soon**
