@@ -28,7 +28,8 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -D PICO_BOARD=xiao_rp2040 -G Ninja
+        # Hier den Unterordner angeben, in dem die CMakeLists.txt liegt
+        cmake ../firmware -D PICO_BOARD=xiao_rp2040 -G Ninja
         ninja
 
     - name: Upload UF2 Artifact
