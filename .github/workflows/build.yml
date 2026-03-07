@@ -14,29 +14,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install QMK CLI
-        run: pip3 install qmk
-
-      - name: Setup QMK
+      - name: Install QMK CLI and dependencies
         run: |
-          git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git ~/qmk_firmware
-          qmk setup -H ~/qmk_firmware -y
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+          pip3 install qmk
+
+      - name: Clone QMK firmware
+        run: |
+          git clone --recurse-submodules --depth 1 https://github.com/qmk/qmk_firmware.git $HOME/qmk_firmware
 
       - name: Copy keyboard files
         run: |
-          cp -r Firmware ~/qmk_firmware/keyboards/wetzii_hackpad
+          mkdir -p $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default
+          cp Firmware/info.json $HOME/qmk_firmware/keyboards/wetzii_hackpad/
+          cp Firmware/config.h $HOME/qmk_firmware/keyboards/wetzii_hackpad/
+          cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/wetzii_hackpad/
+          cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
 
-      - name: Install build dependencies
+      - name: Debug - verify files
         run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc-arm-none-eabi
+          echo "=== Keyboard folder ==="
+          ls -la $HOME/qmk_firmware/keyboards/wetzii_hackpad/
+          echo "=== info.json content ==="
+          cat $HOME/qmk_firmware/keyboards/wetzii_hackpad/info.json
+          echo "=== QMK list-keyboards ==="
+          cd $HOME/qmk_firmware && qmk list-keyboards | grep wetzii || echo "NOT FOUND"
 
       - name: Compile firmware
         run: |
-          qmk compile -H ~/qmk_firmware -kb wetzii_hackpad -km default
+          cd $HOME/qmk_firmware
+          make wetzii_hackpad:default
 
       - name: Upload .uf2 artifact
         uses: actions/upload-artifact@v4
         with:
           name: wetzii_hackpad_firmware
-          path: ~/qmk_firmware/.build/*.uf2
+          path: ${{ env.HOME }}/qmk_firmware/.build/*.uf2
