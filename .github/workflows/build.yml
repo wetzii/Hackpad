@@ -1,46 +1,29 @@
-name: Build QMK Firmware
+name: Build UF2
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Install Pico SDK
         run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
-          sudo pip3 install qmk
+          sudo apt update
+          sudo apt install cmake gcc-arm-none-eabi build-essential git -y
 
-      - name: Clone QMK firmware
+      - name: Build firmware
         run: |
-          git clone --recurse-submodules --depth 1 https://github.com/qmk/qmk_firmware.git $HOME/qmk_firmware
+          cd Firmware
+          mkdir build
+          cd build
+          cmake ..
+          make
 
-      - name: Copy keyboard files
-        run: |
-          mkdir -p $HOME/qmk_firmware/keyboards/hackpad/keymaps/default
-          cp Firmware/info.json $HOME/qmk_firmware/keyboards/hackpad/
-          cp Firmware/config.h $HOME/qmk_firmware/keyboards/hackpad/
-          cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/hackpad/
-          cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/hackpad/keymaps/default/
-
-      - name: Compile
-        run: |
-          cd $HOME/qmk_firmware
-          make hackpad:default
-          find . -name "*.uf2" -exec cp {} $GITHUB_WORKSPACE/firmware.uf2 \;
-
-      - name: Upload .uf2
-        uses: actions/upload-artifact@v4
+      - name: Upload UF2
+        uses: actions/upload-artifact@v3
         with:
-          name: wetzii_hackpad_firmware
-          path: firmware.uf2
-          if-no-files-found: warn
+          name: firmware
+          path: Firmware/build/*.uf2
