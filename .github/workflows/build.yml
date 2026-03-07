@@ -32,22 +32,28 @@ jobs:
           cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/wetzii_hackpad/
           cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
 
-      - name: Compile directly with make
+      - name: Debug - check if keyboard is recognized
         run: |
           cd $HOME/qmk_firmware
-          QMK_HOME=$HOME/qmk_firmware make -j4 keyboards/wetzii_hackpad:default 2>&1 | tail -30
-          find $HOME/qmk_firmware/.build -name "*.uf2" 2>/dev/null | head -5
+          echo "=== rules.mk ==="
+          cat keyboards/wetzii_hackpad/rules.mk
+          echo "=== Trying to list ==="
+          qmk list-keyboards 2>&1 | grep -i wetzii || echo "NOT FOUND"
+          echo "=== Schema validation ==="
+          python3 -c "
+          import json, sys
+          with open('keyboards/wetzii_hackpad/info.json') as f:
+              d = json.load(f)
+          required = ['keyboard_name','processor','bootloader','matrix_pins','layouts']
+          for r in required:
+              print(f'{r}: {\"OK\" if r in d else \"MISSING'}')
+          "
 
-      - name: Copy uf2 to workspace
+      - name: Compile
         run: |
-          UF2=$(find $HOME/qmk_firmware/.build -name "*.uf2" | head -1)
-          if [ -n "$UF2" ]; then
-            cp "$UF2" $GITHUB_WORKSPACE/firmware.uf2
-            echo "Found: $UF2"
-          else
-            echo "No uf2 found, listing build dir:"
-            ls $HOME/qmk_firmware/.build/ 2>/dev/null || echo "Build dir empty"
-          fi
+          cd $HOME/qmk_firmware
+          make wetzii_hackpad:default
+          find . -name "*.uf2" -exec cp {} $GITHUB_WORKSPACE/firmware.uf2 \;
 
       - name: Upload .uf2
         uses: actions/upload-artifact@v4
