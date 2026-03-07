@@ -26,25 +26,16 @@ jobs:
 
       - name: Copy keyboard files
         run: |
-          mkdir -p $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default
-          cp Firmware/info.json $HOME/qmk_firmware/keyboards/wetzii_hackpad/
-          cp Firmware/config.h $HOME/qmk_firmware/keyboards/wetzii_hackpad/
-          cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/wetzii_hackpad/
-          cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
-
-      - name: Check why keyboard not found
-        run: |
-          cd $HOME/qmk_firmware
-          echo "=== Running qmk info to see validation errors ==="
-          qmk info -kb wetzii_hackpad 2>&1 || true
-          echo "=== Checking available RP2040 boards ==="
-          grep -r "SEEED\|seeed\|xiao\|XIAO" platforms/chibios/boards/ --include="*.h" -l 2>/dev/null | head -10
-          ls platforms/chibios/boards/ | grep -i "seeed\|xiao" 2>/dev/null || echo "no seeed boards found"
+          mkdir -p $HOME/qmk_firmware/keyboards/hackpad/keymaps/default
+          cp Firmware/info.json $HOME/qmk_firmware/keyboards/hackpad/
+          cp Firmware/config.h $HOME/qmk_firmware/keyboards/hackpad/
+          cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/hackpad/
+          cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/hackpad/keymaps/default/
 
       - name: Compile
         run: |
           cd $HOME/qmk_firmware
-          make wetzii_hackpad:default
+          make hackpad:default
           find . -name "*.uf2" -exec cp {} $GITHUB_WORKSPACE/firmware.uf2 \;
 
       - name: Upload .uf2
