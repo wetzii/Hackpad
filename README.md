@@ -65,4 +65,4 @@ The Hackpad runs on **QMK Firmware**.
 * **OLED:** Displays the active layer and system status like Num Lock.
 * **Encoder:** Programmed for volume control.
 
-**I just can programming Java at this time I used AI for the Firmware but my own Version is following soon**
+> **I just can programming Java at this time I used AI for the Firmware but my own Version is following soon**
