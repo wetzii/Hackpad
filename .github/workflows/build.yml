@@ -24,11 +24,6 @@ jobs:
         run: |
           git clone --recurse-submodules --depth 1 https://github.com/qmk/qmk_firmware.git $HOME/qmk_firmware
 
-      - name: Find correct SEEED board name
-        run: |
-          find $HOME/qmk_firmware -iname "*.cmake" | xargs grep -l "SEEED\|XIAO" 2>/dev/null | head -5
-          find $HOME/qmk_firmware -iname "*.cmake" | xargs grep -l "SEEED\|XIAO" 2>/dev/null | xargs grep -i "seeed\|xiao" 2>/dev/null | head -20
-
       - name: Copy keyboard files
         run: |
           mkdir -p $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default
@@ -36,6 +31,15 @@ jobs:
           cp Firmware/config.h $HOME/qmk_firmware/keyboards/wetzii_hackpad/
           cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/wetzii_hackpad/
           cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
+
+      - name: Check why keyboard not found
+        run: |
+          cd $HOME/qmk_firmware
+          echo "=== Running qmk info to see validation errors ==="
+          qmk info -kb wetzii_hackpad 2>&1 || true
+          echo "=== Checking available RP2040 boards ==="
+          grep -r "SEEED\|seeed\|xiao\|XIAO" platforms/chibios/boards/ --include="*.h" -l 2>/dev/null | head -10
+          ls platforms/chibios/boards/ | grep -i "seeed\|xiao" 2>/dev/null || echo "no seeed boards found"
 
       - name: Compile
         run: |
