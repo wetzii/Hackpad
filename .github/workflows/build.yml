@@ -32,22 +32,14 @@ jobs:
           cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/wetzii_hackpad/
           cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
 
-      - name: Debug - verify files
-        run: |
-          echo "=== Keyboard folder ==="
-          ls -la $HOME/qmk_firmware/keyboards/wetzii_hackpad/
-          echo "=== info.json content ==="
-          cat $HOME/qmk_firmware/keyboards/wetzii_hackpad/info.json
-          echo "=== QMK list-keyboards ==="
-          cd $HOME/qmk_firmware && qmk list-keyboards | grep wetzii || echo "NOT FOUND"
-
       - name: Compile firmware
         run: |
           cd $HOME/qmk_firmware
           make wetzii_hackpad:default
+          find $HOME/qmk_firmware/.build -name "*.uf2" -exec cp {} $GITHUB_WORKSPACE/firmware.uf2 \;
 
       - name: Upload .uf2 artifact
         uses: actions/upload-artifact@v4
         with:
           name: wetzii_hackpad_firmware
-          path: ${{ env.HOME }}/qmk_firmware/.build/*.uf2
+          path: firmware.uf2
