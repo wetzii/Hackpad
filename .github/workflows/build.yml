@@ -17,8 +17,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi python3-pip
-          pip3 install qmk
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+          sudo pip3 install qmk
 
       - name: Clone QMK firmware
         run: |
@@ -32,22 +32,10 @@ jobs:
           cp Firmware/rules.mk $HOME/qmk_firmware/keyboards/wetzii_hackpad/
           cp Firmware/keymaps/default/keymap.c $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
 
-      - name: Debug
-        run: |
-          echo "=== Files ==="
-          ls -la $HOME/qmk_firmware/keyboards/wetzii_hackpad/
-          ls -la $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/
-          echo "=== rules.mk ==="
-          cat $HOME/qmk_firmware/keyboards/wetzii_hackpad/rules.mk
-          echo "=== keymap.c ==="
-          cat $HOME/qmk_firmware/keyboards/wetzii_hackpad/keymaps/default/keymap.c
-          echo "=== QMK list ==="
-          cd $HOME/qmk_firmware && python3 -m qmk list-keyboards | grep wetzii || echo "NOT FOUND"
-
       - name: Compile
         run: |
           cd $HOME/qmk_firmware
-          python3 -m qmk compile -kb wetzii_hackpad -km default
+          qmk compile -kb wetzii_hackpad -km default
           find $HOME/qmk_firmware/.build -name "*.uf2" -exec cp {} $GITHUB_WORKSPACE/firmware.uf2 \;
 
       - name: Upload .uf2
