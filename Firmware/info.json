@@ -4,7 +4,6 @@
     "maintainer": "Wetzii",
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "board": "SEEED_XIAO_RP2040",
     "usb": {
         "vid": "0x6969",
         "pid": "0x0001",
