@@ -2,7 +2,7 @@
 This is my first real try for the **Hack Club Blueprint** challenge! I wanted to build something functional and learn the full process from PCB design to 3D modeling.
 
 ![3D-View in Fusion 360](Screenshots/Rendert_hackpad.png)
-![Explosion](Screenshots/Explodion.png)
+![Explosion](Screenshots/Explosion.png)
 
 ## 1. The Idea
 My goal was to create a clean and simple macro pad with the following features:
