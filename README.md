@@ -28,6 +28,10 @@ I will use it as a custom **Numpad with extra Shortcuts**. The OLED screen will 
 
 ## 2. Schematic & Electronics
 I designed the circuit to be reliable and easy to solder. It uses a row-column matrix to handle all 16 switches with the limited pins of the XIAO.
+**Important to know** 
+The Rotary Encoder Switch just works to mute and unmute the Capacitor just there as backup!
+I would work without the Capacitors but for me its okay.
+
 ![Schematic](Screenshots/FormworkPlan.png)
 
 ---
