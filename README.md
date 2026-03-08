@@ -28,7 +28,9 @@ I will use it as a custom **Numpad with extra Shortcuts**. The OLED screen will 
 
 ## 2. Schematic & Electronics
 I designed the circuit to be reliable and easy to solder. It uses a row-column matrix to handle all 16 switches with the limited pins of the XIAO.
-**Important to know** 
+
+
+ **Important to know** 
 The Rotary Encoder Switch just works to mute and unmute the Capacitor just there as backup!
 I would work without the Capacitors but for me its okay.
 
@@ -67,6 +69,6 @@ I exported the PCB as a `.step` file and imported it into Fusion 360 to build th
 The Hackpad runs on **QMK Firmware**. 
 * **Layout:** A standard Numpad on the left 3 columns, with 4 customizable shortcut keys on the right.
 * **OLED:** Displays the active layer and system status like Num Lock.
-* **Encoder:** Programmed for volume control.
+* **Encoder:** Programmed just to mu
 
 > **I just can programming Java at this time I used AI for the Firmware but my own Version is following soon**

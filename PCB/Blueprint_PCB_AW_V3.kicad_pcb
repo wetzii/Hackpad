@@ -72,9 +72,9 @@
 			(subtractmaskfromsilk no)
 			(outputformat 1)
 			(mirror no)
-			(drillshape 1)
+			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "")
+			(outputdirectory "../Production/gebers")
 		)
 	)
 	(net 0 "")
@@ -10981,7 +10981,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "Made in Mürztal\nby wetzi"
+	(gr_text "Designed in Mürztal\nby wetzi"
 		(at 93.5355 112.522 0)
 		(layer "Edge.Cuts")
 		(uuid "52cc5734-fb5d-48af-a6ab-83cc0476f618")
