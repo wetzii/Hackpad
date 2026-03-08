@@ -18,15 +18,12 @@
 // Pin 11 = GP3  = ENC_SW (nur Taster)
 // -------------------------------------------------------------------------
 
-// I2C fuer OLED (RP2040 - kein I2C_DRIVER define noetig)
 #define I2C1_SDA_PIN GP6
 #define I2C1_SCL_PIN GP7
 #define I2C1_CLOCK_SPEED 400000
 
-// OLED 128x32 SSD1306
 #define OLED_DISPLAY_128X32
 #define OLED_TIMEOUT 30000
 #define OLED_I2C_ADDRESS 0x3C
 
-// Debounce
 #define DEBOUNCE 5

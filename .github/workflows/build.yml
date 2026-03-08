@@ -1,29 +1,57 @@
-name: Build UF2
+name: Build QMK Firmware
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Install Pico SDK
+      - name: Setup QMK
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install QMK CLI
+        run: pip install qmk
+
+      - name: Clone QMK Firmware
+        run: git clone --depth 1 https://github.com/qmk/qmk_firmware.git
+
+      - name: Install QMK dependencies
         run: |
-          sudo apt update
-          sudo apt install cmake gcc-arm-none-eabi build-essential git -y
+          cd qmk_firmware
+          pip install -r requirements.txt
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi
+
+      - name: Copy keyboard files into QMK
+        run: |
+          mkdir -p qmk_firmware/keyboards/wetzii/hackpad/keymaps/default
+          cp Firmware/hackpad.c    qmk_firmware/keyboards/wetzii/hackpad/hackpad.c
+          cp Firmware/hackpad.h    qmk_firmware/keyboards/wetzii/hackpad/hackpad.h
+          cp Firmware/config.h     qmk_firmware/keyboards/wetzii/hackpad/config.h
+          cp Firmware/info.json    qmk_firmware/keyboards/wetzii/hackpad/info.json
+          cp Firmware/rules.mk     qmk_firmware/keyboards/wetzii/hackpad/rules.mk
+          cp Firmware/keymaps/default/keymap.c qmk_firmware/keyboards/wetzii/hackpad/keymaps/default/keymap.c
 
       - name: Build firmware
         run: |
-          cd Firmware
-          mkdir build
-          cd build
-          cmake ..
-          make
+          cd qmk_firmware
+          qmk setup -H $(pwd) -y
+          qmk compile -kb wetzii/hackpad -km default
 
-      - name: Upload UF2
-        uses: actions/upload-artifact@v3
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: firmware
-          path: Firmware/build/*.uf2
+          name: wetzii_hackpad_firmware
+          path: qmk_firmware/*.uf2
+          if-no-files-found: error
