@@ -13,12 +13,12 @@ My goal was to create a clean and simple macro pad with the following features:
 
 ### Bill of Materials (BOM)
 To build this, I am using the following components:
-* **16x** 1N4148 Diodes (Through-hole).
-* **16x** MX-Style Switches (Kailh Polia).
+* **12x** 1N4148 Diodes (Through-hole).
+* **12x** MX-Style Switches (Kailh Polia).
 * **1x** EC11 Rotary Encoder.
 * **2x** 100nF Ceramic Capacitors.
 * **1x** 0.91-inch OLED Display (SSD1306).
-* **16x** White Blank DSA Keycaps.
+* **12x** White Blank DSA Keycaps.
 * **1x** Seeed Studio XIAO RP2040 Controller.
 
 ### Use Case
