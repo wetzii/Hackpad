@@ -490,7 +490,7 @@
       "plot": "../Production/gebers",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "Blueprint_PCB_AW_V3.step",
       "svg": "",
       "vrml": ""
     },
