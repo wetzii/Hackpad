@@ -1,5 +1,6 @@
 # Hackpad V1
 This is my first real try for the **Hack Club Blueprint** challenge! I wanted to build something functional and learn the full process from PCB design to 3D modeling.
+**This project was guided by the Hackpad Guide**
 
 ![3D-View in Fusion 360](Screenshots/Rendert_hackpad.png)
 ![Explosion](Screenshots/Explosion.png)
@@ -22,7 +23,7 @@ To build this, I am using the following components:
 * **1x** Seeed Studio XIAO RP2040 Controller.
 
 ### Use Case
-I will use it as a custom **Numpad with extra Shortcuts**. The OLED screen will act as a system monitor or a simple clock to keep track of time while working.
+I will use it as a custom **Small Numpad**. The OLED screen will act as a system monitor or a simple clock to keep track of time while working or just to watch cool animations.
 
 ---
 
