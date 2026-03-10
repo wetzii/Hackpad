@@ -66,9 +66,12 @@ I exported the PCB as a `.step` file and imported it into Fusion 360 to build th
 ---
 
 ## 5. Firmware
-The Hackpad runs on **QMK Firmware**. 
-* **Layout:** A standard Numpad on the left 3 columns, with 4 customizable shortcut keys on the right.
-* **OLED:** Displays the active layer and system status like Num Lock.
-* **Encoder:** Programmed just to mu
 
-> **I just can programming Java at this time I used AI for the Firmware but my own Version is following soon**
+The Crash Pad runs on **KMK Firmware** (CircuitPython).
+
+* **Layout:** A standard Numpad layout (0–9, Backspace, Enter)
+* **OLED:** Displays a custom logo and device name on a 128x32 SSD1306 display
+* **Encoder:** Programmed as a System Mute toggle (works in all applications)
+
+> **I am currently learning Python. This firmware was assisted by AI,
+> but my own version is coming soon!**
